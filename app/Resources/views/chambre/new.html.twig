@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <br>
+    <br>
+    <h1>Chambre creation</h1>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" value="Create" class="btn btn-outline-success"/>
+            {{ form_end(form) }}
+
+            <ul>
+                <li>
+                    <a href="{{ path('chambre_index') }}">Back to the list</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

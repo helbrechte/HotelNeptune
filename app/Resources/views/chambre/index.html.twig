@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <h1>Chambres list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cap</th>
+                <th>Expo</th>
+                <th>Douche</th>
+                <th>Wc</th>
+                <th>Bain</th>
+                <th>Etage</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for chambre in chambres %}
+        {% if chambre.reserved == 0  %}
+            <tr>
+                <td><a href="{{ path('chambre_show', { 'id': chambre.id }) }}">{{ chambre.id }}</a></td>
+                <td>{{ chambre.cap }}</td>
+                <td>{{ chambre.expo }}</td>
+                <td>{{ chambre.douche }}</td>
+                <td>{{ chambre.wc }}</td>
+                <td>{{ chambre.bain }}</td>
+                <td>{{ chambre.etage }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('chambre_show', { 'id': chambre.id }) }}">Voir Chambre</a>
+                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('chambre_edit', { 'id': chambre.id }) }}">Editer</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% if is_granted('ROLE_ADMIN') %}
+    <ul>
+        <li>
+            <a href="{{ path('chambre_new') }}">Create a new chambre</a>
+        </li>
+    </ul>
+{% endif %}
+{% endblock %}
