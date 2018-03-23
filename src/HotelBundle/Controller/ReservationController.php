@@ -64,7 +64,7 @@ class ReservationController extends Controller
                 ->setUsername('%mailer_user%')
                 ->setPassword('%mailer_password%');
                 ;
-
+// Swift mailer qui ne marche pas
             $mail = new Swift_Mailer($transport);
             $message = (new Swift_Message('Test mail'))
                 ->setFrom('j.delaunay66@gmail.com')
