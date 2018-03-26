@@ -1,37 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <br>
+    <br>
     <h1>Chambre</h1>
 
     <table class="table">
         <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
             <tr>
                 <th>Id</th>
                 <td>{{ chambre.id }}</td>
             </tr>
+        {% endif %}
             <tr>
-                <th>Cap</th>
-                <td>{{ chambre.cap }}</td>
+                <th>Libelle</th>
+                <td>{{ chambre.libelle }}</td>
             </tr>
             <tr>
-                <th>Expo</th>
-                <td>{{ chambre.expo }}</td>
+                <th>Exposition</th>
+                <td>{{ chambre.exposition }}</td>
             </tr>
             <tr>
-                <th>Douche</th>
-                <td>{{ chambre.douche }}</td>
+                <th>Id Tarif</th>
+                <td>{{ chambre.tarif.id }}</td>
             </tr>
             <tr>
-                <th>Wc</th>
-                <td>{{ chambre.wc }}</td>
-            </tr>
-            <tr>
-                <th>Bain</th>
-                <td>{{ chambre.bain }}</td>
-            </tr>
-            <tr>
-                <th>Etage</th>
-                <td>{{ chambre.etage }}</td>
+                <th>Tarif</th>
+                <td>{{ chambre.tarif.prix }}</td>
             </tr>
         </tbody>
     </table>

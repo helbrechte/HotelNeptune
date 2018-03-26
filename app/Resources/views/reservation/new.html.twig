@@ -4,14 +4,10 @@
     <br>
     <br>
     <h1>Reservation creation</h1>
-    <p>chambre : {{ chambre.id }}</p>
-    <br>
-    <p>user : {{ user.nom }}</p>
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form) }}
-
     <ul>
         <li>
             <a href="{{ path('reservation_index') }}">Back to the list</a>

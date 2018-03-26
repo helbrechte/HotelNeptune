@@ -1,0 +1,9 @@
+Bonjour {{ reservation.client.prenom }} {{ reservation.client.nom }}
+
+{#Merci de votre reservation du {{ reservation.dateArr }} au {{ reservation.dateArr }}#}
+
+Vous avez reservé la chambre {{ reservation.chambre.libelle }} à exposition {{ reservation.chambre.exposition }} pour {{ reservation.nbPers }}
+
+Le montant total est de {{ reservation.chambre.tarif.prix }}
+
+Veullez trouver ci-joint la facture correspond à votre reservation
