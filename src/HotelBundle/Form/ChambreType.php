@@ -14,12 +14,8 @@ class ChambreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cap')
-            ->add('expo')
-            ->add('douche')
-            ->add('wc')
-            ->add('bain')
-            ->add('etage')
+            ->add('libelle')
+            ->add('exposition')
             ->add('tarif' , 'Symfony\Bridge\Doctrine\Form\Type\EntityType' , array(
                 'class' => 'HotelBundle:Tarif',
                 'required'=> true,

@@ -11,8 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Symfony\Component\HttpFoundation\Response;
+//require "vendor/mailer/PHPMailerAutoload.php";
+//require '../../../vendor/autoload.php';
+//require './vendor/autoload.php';
+require 'C:\Users\Jean\Desktop\manchester_bar\PHPMailer-master\PHPMailerAutoload.php';
+include('C:\Users\Jean\Desktop\manchester_bar\PHPMailer-master\class.phpmailer.php');
 /**
  * Reservation controller.
  *
@@ -59,18 +65,29 @@ class ReservationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
+// Changement direct
+            $transport = (new Swift_SmtpTransport('smtp.live.com', 587 , 'tls'))
+                ->setUsername('jean.delaunay@epsi.fr')
+                ->setPassword('motdepasse');
 
-            $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465 , 'ssl'))
-                ->setUsername('%mailer_user%')
-                ->setPassword('%mailer_password%');
-                ;
-// Swift mailer qui ne marche pas
             $mail = new Swift_Mailer($transport);
             $message = (new Swift_Message('Test mail'))
-                ->setFrom('j.delaunay66@gmail.com')
-                ->setTo('j.delaunay66@gmail.com')
-                ->setBody('Test de mail');
-            $result = $mail->send($message);
+                ->setFrom('jean.delaunay@epsi.fr')
+                ->setTo('jean.delaunay@epsi.fr')
+                ->setBody($this->renderView('HotelBundle::mail.html.twig',array('reservation'=>$reservation)));
+            $num = $reservation->getId();
+            $pdf = $this->get('knp_snappy.pdf')->generateFromHtml(
+                $this->renderView(
+                    'HotelBundle::pdf.html.twig',
+                    array(
+                        'reserv'  => $reservation
+                    )
+                ),
+                'C:\Users\Jean\Pictures\pdf\facture_'.$num.'.pdf'
+            );
+            $att = \Swift_Attachment::fromPath('C:\Users\Jean\Pictures\pdf\facture_'.$num.'.pdf');
+            $message->attach($att);
+            $mail->send($message);
             return $this->redirectToRoute('reservation_show', array('id' => $reservation->getId()));
         }
 
@@ -159,4 +176,7 @@ class ReservationController extends Controller
             ->getForm()
         ;
     }
+
+
+
 }

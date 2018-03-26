@@ -9,13 +9,15 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Cap</th>
-                <th>Expo</th>
-                <th>Douche</th>
-                <th>Wc</th>
-                <th>Bain</th>
-                <th>Etage</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Id</th>
+                {% endif %}
+                <th>Libelle</th>
+                <th>Exposition</th>
+                <th>Id Tarif</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                     <th>Tarif</th>
+                {% endif %}
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,13 +25,15 @@
         {% for chambre in chambres %}
         {% if chambre.reserved == 0  %}
             <tr>
-                <td><a href="{{ path('chambre_show', { 'id': chambre.id }) }}">{{ chambre.id }}</a></td>
-                <td>{{ chambre.cap }}</td>
-                <td>{{ chambre.expo }}</td>
-                <td>{{ chambre.douche }}</td>
-                <td>{{ chambre.wc }}</td>
-                <td>{{ chambre.bain }}</td>
-                <td>{{ chambre.etage }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                     <td><a href="{{ path('chambre_show', { 'id': chambre.id }) }}">{{ chambre.id }}</a></td>
+                {% endif %}
+                <td>{{ chambre.libelle }}</td>
+                <td>{{ chambre.exposition }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>{{ chambre.tarif.id }}</td>
+                {% endif %}
+                <td>{{ chambre.tarif.prix }}</td>
                 <td>
                     <ul>
                         <li>

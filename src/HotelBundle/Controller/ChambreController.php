@@ -43,6 +43,7 @@ class ChambreController extends Controller
     public function newAction(Request $request)
     {
         $chambre = new Chambre();
+        $chambre->setReserved(0);
         $form = $this->createForm('HotelBundle\Form\ChambreType', $chambre);
         $form->handleRequest($request);
 
